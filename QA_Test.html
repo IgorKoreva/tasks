@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://localhost:3000/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>body {transition: opacity ease-in 0.2s; } 
+body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
+</style>
+  <title>QA Test</title>
+  <link rel="stylesheet" type="text/css" href="./QA_Test_files/style.css">
+  <link rel="stylesheet" href="./QA_Test_files/all.min.css">
+</head>
+<body>
+  <h1 id="case-counter" style="display: none;">Case 6</h1>
+  <div class="swagger-link" style="display: none;">
+    <a href="http://localhost:3000/api-docs" target="_blank">API Documentation (Swagger)</a>
+  </div>
+  <div class="container" style="display: none;">
+    <div class="form-container">
+      <h2>Регистрация</h2>
+      <form id="register-form">
+        <div class="input-container">
+          <i class="fas fa-user"></i>
+          <input type="text" id="name" placeholder="Name" required="">
+        </div>
+        <div class="input-container">
+          <i class="fas fa-envelope"></i>
+          <input type="email" id="email" placeholder="Email" required="">
+        </div>
+        <div class="input-container">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="password" placeholder="Password" required="">
+        </div>
+        <button type="submit">Зарегистрироваться</button>
+      </form>
+    </div>
+    <div class="bug-report-container">
+      <h2>Краткое описание бага</h2>
+      <select id="bug-type">
+        <option value="frontend">Frontend Bug</option>
+        <option value="backend">Backend Bug</option>
+      </select>
+      <textarea id="bug-report" rows="10" cols="50"></textarea>
+      <button id="next-case">Finish</button>
+    </div>
+  </div>
+  <div id="results-container" style="display: block;">
+    <h2>Результаты</h2>
+    <div id="results"><div class="result">
+      <h3>Case 1</h3>
+      <p><strong>Your Answer:</strong> frontend - Не работает кнопка "Зарегистрироваться". При нажатии ничего не происходит - в devtools, вкладки console и network пусты.</p>
+      <p><strong>Correct Answer:</strong> Баг фронтенда: форма регистрации не отправляет запрос на сервер при попытке зарегистрироваться. Это можно проверить, открыв вкладку «Netwokr» в инструментах разработчика браузера.</p>
+    </div><div class="result">
+      <h3>Case 2</h3>
+      <p><strong>Your Answer:</strong> frontend - Ошибка 403 Forbidden (Запрещено), т.к. по документации API мы должны передавать "4е поле" - "inviteCode", но его на фронте нет.</p>
+      <p><strong>Correct Answer:</strong> Баг фронтенда: в форме регистрации отсутствует обязательное поле для ввода инвайт-кода, который в данном случае необходим для регистрации. Бэкенд правильно возвращает ошибку 403 Forbidden, поскольку инвайт-код отсутствует. Данный код можно найти в запросах на получение информации о пользователях.</p>
+    </div><div class="result">
+      <h3>Case 3</h3>
+      <p><strong>Your Answer:</strong> frontend - 500 ISE. Передается неверный JSON - отсутствуют кавычки у ключей (network/payload/). Backend не обрабатывает не валидный JSON - ожидаемая ошибка 400 Bad Requests.</p>
+      <p><strong>Correct Answer:</strong> Баг бэкенда: сервер возвращает ошибку 500 Internal Server Error. Это общее сообщение об ошибке, которое указывает на то, что на сервере возникло непредвиденное условие.</p>
+    </div><div class="result">
+      <h3>Case 4</h3>
+      <p><strong>Your Answer:</strong> frontend - frontend - 500 ISE. Неверный эндпойнт:
+В документации указан /register, фронт стучится на /register-bad</p>
+      <p><strong>Correct Answer:</strong> Баг фронтенда: фронтенд отправляет запрос на регистрацию на неверный URL-адрес (http://localhost:3000/register-bad). Правильный URL-адрес: http://localhost:3000/register.</p>
+    </div><div class="result">
+      <h3>Case 5</h3>
+      <p><strong>Your Answer:</strong> frontend - 500 ISE. В request фронтом передается неверная модель. Сервер ждет json с "name", "email", "password", а мы передаем (network/payloads/) "e", "n", "p"
+Backend не обрабатывает не валидный JSON - ожидаемая ошибка 400 Bad Requests.</p>
+      <p><strong>Correct Answer:</strong> Баг фронтенда: фронтенд отправляет запрос с искаженным телом. Ключи для имени, электронной почты и пароля сокращены до n, e и p, которые сервер не понимает.</p>
+    </div><div class="result">
+      <h3>Case 6</h3>
+      <p><strong>Your Answer:</strong> frontend - 500 ISE. Используется неверный метод - PUT. По документации API мы должны использовать POST.
+Backend не обрабатывает неверный метод - ожидаемая ошибка 400 Bad Requests.</p>
+      <p><strong>Correct Answer:</strong> Баг фронтенда: фронтенд отправляет запрос PUT вместо запроса POST. Сервер не настроен для обработки запросов PUT для конечной точки /register.</p>
+    </div></div>
+  </div>
+  <script src="./QA_Test_files/app.js.Без названия"></script>
+
+
+<veepn-intro-offer><template shadowrootmode="open"><style>html{box-sizing:border-box;text-size-adjust:100%;word-break:normal;tab-size:4}*,:before,:after{background-repeat:no-repeat;box-sizing:border-box}:before,:after{text-decoration:inherit;vertical-align:inherit}*{padding:0;margin:0}hr{overflow:visible;height:0;color:inherit;border:0;border-top:1px solid}details,main{display:block}summary{display:list-item}small{font-size:80%}[hidden]{display:none!important}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}a{background-color:transparent}a:active,a:hover{outline-width:0}code,kbd,pre,samp{font-family:monospace}pre{font-size:1em}b,strong{font-weight:bolder}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{border-color:inherit;text-indent:0}iframe{border-style:none}input{border-radius:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-decoration{appearance:none}textarea{overflow:auto;resize:vertical}button,input,optgroup,select,textarea{font:inherit;color:inherit}optgroup{font-weight:700}button{overflow:visible}button,select{text-transform:none}button,[type=button],[type=reset],[type=submit],[role=button]{cursor:pointer}button::-moz-focus-inner,[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner{border-style:none;padding:0}button,html [type=button],[type=reset],[type=submit]{appearance:button}button,input,select,textarea{background-color:transparent;border-style:none}button:-moz-focusring,[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner{outline:1px dotted ButtonText}select{appearance:none}a:focus,button:focus,input:focus,select:focus,textarea:focus{outline-width:0}select::-ms-expand{display:none}select::-ms-value{color:currentcolor}legend{border:0;color:inherit;display:table;white-space:normal;max-width:100%}::-webkit-file-upload-button{appearance:button;color:inherit;font:inherit}[disabled]{cursor:default}img{border-style:none}progress{vertical-align:baseline}[aria-busy=true]{cursor:progress}[aria-controls]{cursor:pointer}[aria-disabled=true]{cursor:default}ul,ol{list-style-type:none}figure{margin:0}@keyframes slide-in{0%{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}.offer-popup{font-family:FigtreeVF,sans-serif;position:fixed;right:16px;bottom:16px;z-index:2147483638;width:327px;border-radius:12px;overflow:hidden;background-color:#fff;box-shadow:0 0 16px #293a5333;animation:slide-in .3s ease-in-out forwards}.offer-popup__close{position:absolute;top:8px;right:8px;z-index:1;width:24px;height:24px;cursor:pointer;opacity:.5}.offer-popup__header{background:radial-gradient(50.52% 128.47% at 50.15% 128.47%,#23abff,#3066ff);padding:24px 24px 12px}.offer-popup__title{font-weight:700;font-size:20px;line-height:28px;text-align:center;color:#fff;margin:0}.offer-popup__main{padding:24px 20px 32px}.offer-popup__subtitle{color:#293a53;font-size:22px;line-height:32px;text-align:center;margin:0 0 24px}.offer-popup__subtitle span{color:#f70}.offer-popup__list{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.offer-popup__item{display:flex;flex-direction:column;align-items:center;row-gap:6px;text-align:center;color:#293a53;font-size:16px;line-height:24px}.offer-popup__icon{margin:0;display:flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:12px;background-color:#ebefff}.offer-popup__footer{padding:0 20px 20px;display:flex;flex-direction:column;row-gap:16px}.offer-popup__submit{display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;height:40px;border-radius:12px;padding-inline:16px;background-color:#f70;color:#fff;cursor:pointer}.offer-popup__cancel{display:flex;align-items:center;justify-content:center;font-weight:400;font-size:14px;color:#82829c;cursor:pointer}</style></template><style>@font-face{font-family:FigtreeVF;src:url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"),url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");font-weight:100 1000;font-display:swap}</style></veepn-intro-offer></body></html>
