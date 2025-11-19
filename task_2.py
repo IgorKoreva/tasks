@@ -22,4 +22,4 @@ def test_calculate_total_post_body_length():
 
     # Это значение неверное, так как код подсчета работает неправильно
     expected_length = 4500
-    assert total_length == expected_length, f"Ожидалось {expected_length}, но было получено {total_length}"
+    assert total_length == expected_length, Exception(f"Ожидалось {expected_length}, но было получено {total_length}")
